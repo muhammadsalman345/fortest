@@ -24,20 +24,5 @@ export class AuthService {
     return this.http.post(signupEndpoint, userDetails, httpOptions);
   }
 
-
-
-  verifyOtp(userDetails: users): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      })
-    };
-
-    // Use the specific endpoint for registration
-    const signupEndpoint = `${this.baseUrl}/verify-otp`;
-
-    return this.http.post(signupEndpoint, userDetails, httpOptions);
-  }
-
   
 }
