@@ -1,27 +1,38 @@
+// register.component.ts
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { passwordMatchValidator } from '../../PasswordValidators/passwordMatchvalidatores';
 import { AuthService } from '../../services/auth.service';
 import { users } from '../../interfaces/auth';
+import { passwordMatchValidator } from '../../PasswordValidators/passwordMatchvalidatores';
+import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  providers: [MessageService]
 })
 export class RegisterComponent {
+  messages: { severity: string, summary: string, detail: string }[] = [];
+  loading: boolean = false;
+
   registerForm = this.fb.group({
-    fullName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?:[z-zA-Z]+)*$/)]],
+    username: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?:[a-zA-Z]+)*$/)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
     confirmPassword: ['', Validators.required]
-  },
-  { Validators: passwordMatchValidator });
+  }, { validators: passwordMatchValidator });
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private messageService: MessageService,
+    private router: Router
+  ) {}
 
-  get fullName() {
-    return this.registerForm.controls['fullName'];
+  get username() {
+    return this.registerForm.controls['username'];
   }
 
   get email() {
@@ -37,17 +48,41 @@ export class RegisterComponent {
   }
 
   submitDetails() {
+    console.log('Submit button clicked');
     const postData = { ...this.registerForm.value };
+    console.log('post data', postData);
     delete postData.confirmPassword;
+
+    this.loading = true;
 
     this.authService.registerUser(postData as users).subscribe(
       (response: any) => {
+        console.log('Request Data:', postData); 
         console.log('Response:', response);
-        // Handle the response or trigger any other action upon success
+
+        if (response && response.message === 'OTP sent successfully') {
+          this.messages.push({ severity: 'success', summary: 'Success', detail: 'Registration successful! Check your email for OTP.' });
+          this.registerForm.reset();
+          this.router.navigate(['/otpverification']);
+        } else {
+          this.messages.push({ severity: 'error', summary: 'Error', detail: 'Unknown response from the server.' });
+        }
       },
       (error: any) => {
         console.error('Error:', error);
-        // Handle the error or show an error message to the user
+
+        if (error.status === 409) {
+          // HTTP status code 409 indicates a conflict, meaning the user is already registered
+          this.messages.push({ severity: 'warn', summary: 'Warning', detail: 'User already registered. Please log in.' });
+        } else if (error.error && error.error.message) {
+          this.messages.push({ severity: 'error', summary: 'Error', detail: error.error.message });
+        } else {
+          this.messages.push({ severity: 'error', summary: 'Error', detail: 'Error during registration. Please try again.' });
+        }
+      },
+      () => {
+        console.log('Observable complete.');
+        this.loading = false;
       }
     );
   }

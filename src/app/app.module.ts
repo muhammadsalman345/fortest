@@ -16,12 +16,19 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+
+
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { MessageModule } from 'primeng/message';
+import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    VerifyOtpComponent,
 
 
   ],
@@ -34,7 +41,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     ButtonModule,
     InputTextModule,
-    HttpClientModule
+    HttpClientModule,ToastrModule,ProgressSpinnerModule,MessageModule
 
   ],
   providers: [
