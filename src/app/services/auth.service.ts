@@ -7,8 +7,8 @@ import { users } from '../interfaces/auth';
   providedIn: 'root'
 })
 export class AuthService {
-  // private baseUrl = 'https://adorable-waders-crab.cyclic.app/api'; // this is online applicatin user
-  private baseUrl = 'http://localhost:3000/api'; 
+  private baseUrl = 'https://adorable-waders-crab.cyclic.app/api'; // this is online applicatin user
+  // private baseUrl = 'http://localhost:3000/api'; 
   constructor(private http: HttpClient) {}
 
   registerUser(userDetails: users): Observable<any> {
