@@ -48,7 +48,7 @@ export class RegisterComponent {
   }
 
   submitDetails() {
-    console.log('Submit button clicked');
+    // console.log('Submit button clicked');
     const postData = { ...this.registerForm.value };
     console.log('post data', postData);
     delete postData.confirmPassword;
@@ -57,8 +57,8 @@ export class RegisterComponent {
 
     this.authService.registerUser(postData as users).subscribe(
       (response: any) => {
-        console.log('Request Data:', postData); 
-        console.log('Response:', response);
+        // console.log('Request Data:', postData); 
+        // console.log('Response:', response);
 
         if (response && response.message === 'OTP sent successfully') {
           this.messages.push({ severity: 'success', summary: 'Success', detail: 'Registration successful! Check your email for OTP.' });
@@ -69,7 +69,7 @@ export class RegisterComponent {
         }
       },
       (error: any) => {
-        console.error('Error:', error);
+        // console.error('Error:', error);
 
         if (error.status === 409) {
           // HTTP status code 409 indicates a conflict, meaning the user is already registered
@@ -81,7 +81,7 @@ export class RegisterComponent {
         }
       },
       () => {
-        console.log('Observable complete.');
+        // console.log('Observable complete.');
         this.loading = false;
       }
     );
