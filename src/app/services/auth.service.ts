@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,7 +8,8 @@ import { users } from '../interfaces/auth';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:3000/api';
+  // private baseUrl = 'http://localhost:3000/api';
+  private baseUrl = 'https://adorable-waders-crab.cyclic.app';
 
   constructor(private http: HttpClient) {}
 

@@ -18,12 +18,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { ToastModule } from 'primeng/toast';
-
+import { PanelMenuModule } from 'primeng/panelmenu';
 import { FormsModule } from '@angular/forms';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageModule } from 'primeng/message';
-import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
-
+import { VerifyOtpComponent } from './components/verify-otp/verify-otp.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { DockModule } from 'primeng/dock';
+import { MenubarModule } from 'primeng/menubar';
+import { ToolbarModule } from 'primeng/toolbar';
+import { AvatarModule } from 'primeng/avatar';
+import { SplitButtonModule } from 'primeng/splitbutton';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +37,8 @@ import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
     LoginComponent,
     RegisterComponent,
     VerifyOtpComponent,
+    HeaderComponent,
+    FooterComponent,
     
 
 
@@ -43,8 +51,8 @@ import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
     InputTextareaModule,
     ReactiveFormsModule,
     ButtonModule,
-    InputTextModule,
-    HttpClientModule,ToastrModule,ProgressSpinnerModule,MessageModule,ToastModule,FormsModule
+    InputTextModule,MenubarModule,ToolbarModule,AvatarModule,SplitButtonModule,
+    HttpClientModule,ToastrModule,ProgressSpinnerModule,MessageModule,ToastModule,FormsModule,PanelMenuModule,DockModule
 
   ],
   providers: [

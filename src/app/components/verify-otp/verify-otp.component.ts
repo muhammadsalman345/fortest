@@ -1,8 +1,6 @@
-// verify-otp.component.ts
-
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -28,21 +26,24 @@ export class VerifyOtpComponent {
     // Retrieve email from query parameters
     this.route.queryParams.subscribe(params => {
       this.email = params['email']!;
+      
+      // Check if email is not present, redirect to signup
+      if (!this.email) {
+        this.router.navigate(['/signup']);
+      }
     });
   }
 
   onSubmit() {
     this.loading = true;
-  
+
     // Add OTP verification logic here
     this.authService.verifyOtp(this.email, this.otp).subscribe(
       (response: any) => {
-        console.log('Server Response:', response);  // Log the response
-  
         if (response && response.message === 'Email verification successful' && response.token) {
           // Store token in local storage
           localStorage.setItem('jwtToken', response.token);
-  
+
           this.messages.push({ severity: 'success', summary: 'Success', detail: 'OTP verified successfully!' });
           this.router.navigate(['/home']);
         } else {
