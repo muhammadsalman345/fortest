@@ -43,11 +43,13 @@
     </div>
 
       <p-button (click)="submitDetails()" label="SIGN UP" styleClass="w-full" [disabled]="!registerForm.valid || loading"></p-button>
-  
+  <!-- Example in register.component.html -->
+
+
       <!-- Spinner -->
-      <div *ngIf="loading" class="spinner-overlay">
+      <div *ngIf="loading" class="overlay">
         <p-progressSpinner></p-progressSpinner>
-      </div>
+    </div>
   
       <!-- Display messages -->
       <div *ngFor="let message of messages">

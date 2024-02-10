@@ -1,1 +1,34 @@
-<p>verify-otp works!</p>
+<!-- verify-otp.component.html -->
+
+<div class="card-container">
+    <h2>Verify OTP</h2>
+    <form (ngSubmit)="onSubmit()" class="card-form">
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <div class="input-container">
+          <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required disabled>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="otp">Enter OTP:</label>
+        <div class="input-container">
+          <input type="number" class="form-control" id="otp" [(ngModel)]="otp" name="otp" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Verify OTP</button>
+    </form>
+  </div>
+  
+  <!-- Spinner -->
+  <div *ngIf="loading" class="overlay">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  
+  <!-- Display messages -->
+  <div *ngFor="let message of messages">
+    <div [ngClass]="['p-message', 'p-message-' + message.severity]">
+      <div class="p-message-summary">{{ message.summary }}</div>
+      <div class="p-message-detail">{{ message.detail }}</div>
+    </div>
+  </div>
+  

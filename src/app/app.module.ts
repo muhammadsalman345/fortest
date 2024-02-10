@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
+import { MessageService } from 'primeng/api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CardModule } from 'primeng/card';
@@ -17,11 +17,13 @@ import { RegisterComponent } from './components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { ToastModule } from 'primeng/toast';
 
-
+import { FormsModule } from '@angular/forms';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageModule } from 'primeng/message';
 import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +31,7 @@ import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
     LoginComponent,
     RegisterComponent,
     VerifyOtpComponent,
+    
 
 
   ],
@@ -41,7 +44,7 @@ import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
     ReactiveFormsModule,
     ButtonModule,
     InputTextModule,
-    HttpClientModule,ToastrModule,ProgressSpinnerModule,MessageModule
+    HttpClientModule,ToastrModule,ProgressSpinnerModule,MessageModule,ToastModule,FormsModule
 
   ],
   providers: [

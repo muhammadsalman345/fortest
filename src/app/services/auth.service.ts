@@ -7,8 +7,8 @@ import { users } from '../interfaces/auth';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'https://adorable-waders-crab.cyclic.app/api'; // this is online applicatin user
-  // private baseUrl = 'http://localhost:3000/api'; 
+  private baseUrl = 'http://localhost:3000/api';
+
   constructor(private http: HttpClient) {}
 
   registerUser(userDetails: users): Observable<any> {
@@ -18,11 +18,23 @@ export class AuthService {
       })
     };
 
-    // Use the specific endpoint for registration
     const signupEndpoint = `${this.baseUrl}/signup`;
 
     return this.http.post(signupEndpoint, userDetails, httpOptions);
   }
 
-  
+  // ... other methods
+
+  // Add the method for OTP verification if not already present
+  verifyOtp(email: string, otp: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    const verifyOtpEndpoint = `${this.baseUrl}/verify-otp`; // Adjust the endpoint accordingly
+
+    return this.http.post(verifyOtpEndpoint, { email, otp }, httpOptions);
+  }
 }
