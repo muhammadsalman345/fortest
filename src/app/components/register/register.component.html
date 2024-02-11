@@ -1,65 +1,56 @@
 <!-- register.component.html -->
 <form [formGroup]="registerForm">
-    <p-card header="Register" [style]="{ width: '360px' }">
-      <!-- Your form fields... -->
-      <div class="field">
-
-        <label for="username">FullName</label>
-        <input type="text" pInputText formControlName="username" class="w-full" placeholder="Enter Your Full Name">
-        <small class="block p-error" *ngIf="username.invalid && (username.dirty ||username.touched)">
-
-            <div *ngIf="username.errors?.['required']">Name is Required</div>
-
-            <div *ngIf="username.errors?.['pattern']">Enter valid Name</div>
-        </small>
-    </div>
+  <p-card header="Register" [style]="{ width: '360px' }">
+    <!-- Your form fields... -->
     <div class="field">
+      <label for="username">FullName</label>
+      <input type="text" pInputText formControlName="username" class="w-full" placeholder="Enter Your Full Name">
+      <small class="block p-error" *ngIf="username.invalid && (username.dirty ||username.touched)">
+          <div *ngIf="username.errors?.['required']">Name is Required</div>
+          <div *ngIf="username.errors?.['pattern']">Enter valid Name</div>
+      </small>
+  </div>
+  <div class="field">
+      <label for="email">Email</label>
+      <input type="email" pInputText formControlName="email" placeholder="Enter your Email" class="w-full">
+      <small *ngIf="email.invalid && (email.dirty || email.touched)">
+          <div *ngIf="email.errors?.['required']">Email is Required</div>
+          <div *ngIf="email.errors?.['email']"> Email Shoud be Valid</div>
+      </small>
+  </div>
+  <div class="field">
+      <label for="password">password</label>
+      <input type="text" pInputText formControlName="password" placeholder="Enter your Password" class="w-full">
+      <small *ngIf="password.invalid && ([password.dirty||password.touched])">
+          <div *ngIf="password.errors?.['required']">Password Required</div>
+      </small></div>
+  <div class="field">
+      <label for="confirmPassword">ConfirmPassword</label>
+      <input type="text" pInputText formControlName="confirmPassword" placeholder="reEnter Password"
+          class="w-full">
+      <small class="block p-error"
+          *ngIf="confirmPassword.invalid && ([confirmPassword.dirty || confirmPassword.touched])">
+          <div *ngIf="confirmPassword.errors?.['required']">ConfirmPassword required</div>
+      </small>
+      <small class="block p-error"
+          *ngIf="registerForm.errors?.['passworMissmatch']&&confirmPassword.valid&&password.valid"></small>
+  </div>
 
-        <label for="email">Email</label>
-        <input type="email" pInputText formControlName="email" placeholder="Enter your Email" class="w-full">
-        <small *ngIf="email.invalid && (email.dirty || email.touched)">
-            <div *ngIf="email.errors?.['required']">Email is Required</div>
-            <div *ngIf="email.errors?.['email']"> Email Shoud be Valid</div>
-        </small>
+    <p-button (click)="submitDetails()" label="SIGN UP" styleClass="w-full" [disabled]="!registerForm.valid || loading"></p-button>
+
+    <!-- Spinner -->
+    <div *ngIf="loading" class="spinner-overlay">
+      <p-progressSpinner></p-progressSpinner>
     </div>
-    <div class="field">
-        <label for="password">password</label>
-        <input type="text" pInputText formControlName="password" placeholder="Enter your Password" class="w-full">
-        <small *ngIf="password.invalid && ([password.dirty||password.touched])">
-            <div *ngIf="password.errors?.['required']">Password Required</div>
-        </small></div>
-    <div class="field">
 
-        <label for="confirmPassword">ConfirmPassword</label>
-        <input type="text" pInputText formControlName="confirmPassword" placeholder="reEnter Password"
-            class="w-full">
-        <small class="block p-error"
-            *ngIf="confirmPassword.invalid && ([confirmPassword.dirty || confirmPassword.touched])">
-            <div *ngIf="confirmPassword.errors?.['required']">ConfirmPassword required</div>
-        </small>
-
-        <small class="block p-error"
-            *ngIf="registerForm.errors?.['passworMissmatch']&&confirmPassword.valid&&password.valid"></small>
-    </div>
-
-      <p-button (click)="submitDetails()" label="SIGN UP" styleClass="w-full" [disabled]="!registerForm.valid || loading"></p-button>
-  <!-- Example in register.component.html -->
-
-
-      <!-- Spinner -->
-      <div *ngIf="loading" class="overlay">
-        <p-progressSpinner></p-progressSpinner>
-    </div>
-  
-      <!-- Display messages -->
-      <div *ngFor="let message of messages">
-        <div [ngClass]="['p-message', 'p-message-' + message.severity]">
-          <div class="p-message-summary">{{ message.summary }}</div>
-          <div class="p-message-detail">{{ message.detail }}</div>
-        </div>
+    <!-- Display messages -->
+    <div *ngFor="let message of messages">
+      <div [ngClass]="['p-message', 'p-message-' + message.severity]">
+        <div class="p-message-summary">{{ message.summary }}</div>
+        <div class="p-message-detail">{{ message.detail }}</div>
       </div>
-  
-      Already a member? <a routerLink="/login">Login</a>
-    </p-card>
-  </form>
-  
+    </div>
+
+    Already a member? <a routerLink="/login">Login</a>
+  </p-card>
+</form>
