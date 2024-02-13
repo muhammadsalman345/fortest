@@ -36,6 +36,8 @@ export class VerifyOtpComponent {
 
   onSubmit() {
     this.loading = true;
+    // Clear existing messages
+    this.messages = [];
 
     // Add OTP verification logic here
     this.authService.verifyOtp(this.email, this.otp).subscribe(

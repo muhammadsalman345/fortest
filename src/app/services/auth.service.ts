@@ -8,8 +8,8 @@ import { users } from '../interfaces/auth';
   providedIn: 'root'
 })
 export class AuthService {
-  // private baseUrl = 'http://localhost:3000/api';
-  private baseUrl = 'https://studymax.cyclic.app/api';
+  private baseUrl = 'http://localhost:3000/api';
+  // private baseUrl = 'https://studymax.cyclic.app/api';
 
   constructor(private http: HttpClient) {}
 
